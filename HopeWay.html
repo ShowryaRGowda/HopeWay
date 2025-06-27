@@ -1,0 +1,2939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HopeWay-Not At All Far Away</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1e88e5;
+            --primary-dark: #1565c0;
+            --secondary: #26a69a;
+            --emergency: #e53935;
+            --warning: #ffb300;
+            --success: #43a047;
+            --light-gray: #f5f5f5;
+            --dark-gray: #424242;
+            --text: #212121;
+            --light-text: #757575;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--text);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .logo i {
+            margin-right: 8px;
+        }
+
+        .emergency-number {
+            background-color: var(--emergency);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+
+        .emergency-number i {
+            margin-right: 8px;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(229, 57, 53, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(229, 57, 53, 0);
+            }
+        }
+
+        nav {
+            background-color: var(--primary-dark);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 60px;
+            z-index: 99;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-tabs button {
+            background-color: transparent;
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-tabs button.active {
+            background-color: var(--white);
+            color: var(--primary-dark);
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .location-button {
+            background-color: var(--secondary);
+            color: var(--white);
+            border: none;
+            padding: 12px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .location-button:hover {
+            background-color: #00897b;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 992px) {
+            .dashboard {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timestamp {
+            color: var(--light-text);
+            font-size: 0.85rem;
+        }
+
+        .bed-status-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .bed-status-table th, 
+        .bed-status-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .bed-status-table th {
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .status-available {
+            background-color: rgba(67, 160, 71, 0.1);
+            color: var(--success);
+        }
+
+        .status-limited {
+            background-color: rgba(255, 179, 0, 0.1);
+            color: var(--warning);
+        }
+
+        .status-full {
+            background-color: rgba(229, 57, 53, 0.1);
+            color: var(--emergency);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-dot.available {
+            background-color: var(--success);
+        }
+
+        .status-dot.limited {
+            background-color: var(--warning);
+        }
+
+        .status-dot.full {
+            background-color: var(--emergency);
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .hospital-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .hospital-card {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s ease;
+        }
+
+        .hospital-card:hover {
+            background-color: #f9f9f9;
+        }
+
+        .hospital-icon {
+            font-size: 24px;
+            color: var(--primary);
+            min-width: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hospital-info {
+            flex: 1;
+        }
+
+        .hospital-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .hospital-meta {
+            display: flex;
+            gap: 15px;
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .hospital-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .hospital-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .hospital-actions button {
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: none;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .call-btn {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .call-btn:hover {
+            background-color: #388e3c;
+        }
+
+        .directions-btn {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+        }
+
+        .directions-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .treatment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .treatment-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .treatment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .treatment-icon {
+            background-color: var(--primary);
+            color: var(--white);
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .treatment-content {
+            padding: 20px;
+        }
+
+        .treatment-title {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .treatment-desc {
+            color: var(--light-text);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .view-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .view-more:hover {
+            color: var(--primary-dark);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 150px;
+            background-color: var(--white);
+            border: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .action-btn.emergency i {
+            color: var(--emergency);
+        }
+
+        .action-btn span {
+            display: block;
+            font-weight: 500;
+        }
+
+        .call-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .call-option-card {
+            flex: 1;
+            min-width: 250px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .call-option-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .call-option-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .call-option-icon.emergency {
+            background-color: rgba(229, 57, 53, 0.1);
+            color: var(--emergency);
+        }
+
+        .call-option-icon.doctor {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--primary);
+        }
+
+        .call-option-icon.video {
+            background-color: rgba(38, 166, 154, 0.1);
+            color: var(--secondary);
+        }
+
+        .call-option-title {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .call-option-desc {
+            color: var(--light-text);
+            margin-bottom: 20px;
+        }
+
+        .call-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .call-action-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .call-action-btn.emergency {
+            background-color: var(--emergency);
+        }
+
+        .call-action-btn.emergency:hover {
+            background-color: #c62828;
+        }
+
+        .call-action-btn.video {
+            background-color: var(--secondary);
+        }
+
+        .call-action-btn.video:hover {
+            background-color: #00897b;
+        }
+
+        footer {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-disclaimer {
+            color: #bdbdbd;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        .footer-timestamp {
+            color: #bdbdbd;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .nav-tabs {
+                overflow-x: auto;
+                padding-bottom: 5px;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                width: 100%;
+            }
+            
+            .nav-tabs button {
+                white-space: nowrap;
+            }
+            
+            .hospital-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .call-options {
+                flex-direction: column;
+            }
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 10% auto;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 600px;
+            position: relative;
+            animation: modalFade 0.3s ease;
+        }
+
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light-text);
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--text);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .treatment-steps {
+            margin-top: 20px;
+        }
+
+        .treatment-step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .step-desc {
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            .chatbot-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chatbot-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary, #4285f4);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.chatbot-button:hover {
+    background-color: var(--primary-dark, #3367d6);
+    transform: scale(1.05);
+}
+
+.chatbot-container {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 350px;
+    max-height: 500px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: none;
+    flex-direction: column;
+}
+
+.chatbot-header {
+    background-color: var(--primary, #4285f4);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.chatbot-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.chatbot-controls span {
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.chatbot-controls span:hover {
+    opacity: 1;
+}
+
+.chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 350px;
+}
+
+.message {
+    max-width: 85%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    position: relative;
+}
+
+.message.user {
+    align-self: flex-end;
+    background-color: var(--primary, #4285f4);
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.message.assistant {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: var(--text, #333);
+    border-bottom-left-radius: 5px;
+}
+
+.message-content {
+    line-height: 1.4;
+}
+
+.message-content ul {
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.message-content ul li {
+    margin-bottom: 3px;
+}
+
+.message-time {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.chatbot-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #eee;
+}
+
+.chatbot-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+}
+
+.chatbot-input input:focus {
+    border-color: var(--primary, #4285f4);
+}
+
+.chatbot-input button {
+    background-color: var(--primary, #4285f4);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chatbot-input button:hover {
+    background-color: var(--primary-dark, #3367d6);
+}
+
+.suggestion-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.suggestion-chip {
+    background-color: var(--light-gray, #e9e9e9);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.suggestion-chip:hover {
+    background-color: #e0e0e0;
+}
+
+/* Add a typing indicator animation */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    border-radius: 15px;
+    align-self: flex-start;
+    margin-bottom: 10px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #aaa;
+    display: inline-block;
+    animation: typing 1.5s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0);
+    }
+    30% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Quick action buttons styling */
+.quick-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.quick-action-btn {
+    background-color: var(--primary, #4285f4);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quick-action-btn:hover {
+    background-color: var(--primary-dark, #3367d6);
+    transform: translateY(-2px);
+}
+
+.quick-action-btn i {
+    font-size: 0.8rem;
+}
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-heartbeat"></i>
+            <span>HopeWay</span>
+        </div>
+        <div class="emergency-number" onclick="openCallModal()">
+            <i class="fas fa-phone-alt"></i>
+            <span>Emergency: 911</span>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-tabs">
+            <button class="tab-button active" data-tab="emergency-beds">Emergency Beds</button>
+            <button class="tab-button" data-tab="nearby-hospitals">Nearby Hospitals</button>
+            <button class="tab-button" data-tab="treatment-suggestions">Treatment Guide</button>
+            <button class="tab-button" data-tab="doctor-call">Call a Doctor</button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Emergency Beds Tab -->
+        <div id="emergency-beds" class="tab-content active">
+            <div class="search-bar">
+                <input type="text" placeholder="Search hospitals or specialties...">
+                <button class="location-button">
+                    <i class="fas fa-location-arrow"></i>
+                    Use my location
+                </button>
+                <button>Search</button>
+            </div>
+
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-procedures"></i>
+                            Emergency Bed Status
+                        </div>
+                        <div class="timestamp">
+                            Last updated: 5 minutes ago
+                        </div>
+                    </div>
+                    <div class="bed-status-filters">
+                        <button class="active">All</button>
+                        <button>ICU</button>
+                        <button>ER</button>
+                        <button>Pediatric</button>
+                        <button>General</button>
+                    </div>
+                    <table class="bed-status-table">
+                        <thead>
+                            <tr>
+                                <th>Hospital</th>
+                                <th>Status</th>
+                                <th>Wait Time</th>
+                                <th>Distance</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>City General Hospital</td>
+                                <td>
+                                    <span class="status-indicator status-available">
+                                        <span class="status-dot available"></span>
+                                        Available
+                                    </span>
+                                </td>
+                                <td>~15 min</td>
+                                <td>2.3 miles</td>
+                                <td>
+                                    <button class="call-btn">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Call
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Memorial Medical Center</td>
+                                <td>
+                                    <span class="status-indicator status-limited">
+                                        <span class="status-dot limited"></span>
+                                        Limited
+                                    </span>
+                                </td>
+                                <td>~45 min</td>
+                                <td>3.7 miles</td>
+                                <td>
+                                    <button class="call-btn">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Call
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>St. Luke's Hospital</td>
+                                <td>
+                                    <span class="status-indicator status-full">
+                                        <span class="status-dot full"></span>
+                                        Full
+                                    </span>
+                                </td>
+                                <td>~120 min</td>
+                                <td>1.5 miles</td>
+                                <td>
+                                    <button class="call-btn">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Call
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Northeast Medical</td>
+                                <td>
+                                    <span class="status-indicator status-available">
+                                        <span class="status-dot available"></span>
+                                        Available
+                                    </span>
+                                </td>
+                                <td>~20 min</td>
+                                <td>4.2 miles</td>
+                                <td>
+                                    <button class="call-btn">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Call
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Community Health</td>
+                                <td>
+                                    <span class="status-indicator status-limited">
+                                        <span class="status-dot limited"></span>
+                                        Limited
+                                    </span>
+                                </td>
+                                <td>~35 min</td>
+                                <td>3.1 miles</td>
+                                <td>
+                                    <button class="call-btn">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Call
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-chart-line"></i>
+                            Availability Trend
+                        </div>
+                        <div class="timestamp">
+                            Last 24 hours
+                        </div>
+                    </div>
+                    <div id="trend-chart" style="height: 300px; background-color: #f9f9f9; border-radius: 5px; display: flex; align-items: center; justify-content: center;">
+                        <p>Availability trend chart will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nearby Hospitals Tab -->
+        <div id="nearby-hospitals" class="tab-content">
+            <div class="search-bar">
+                <input type="text" placeholder="Search by hospital name, specialty, or location...">
+                <button class="location-button">
+                    <i class="fas fa-location-arrow"></i>
+                    Use my location
+                </button>
+                <button>Search</button>
+            </div>
+
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-map-marked-alt"></i>
+                            Hospital Map
+                        </div>
+                        <div class="timestamp">
+                            Based on your current location
+                        </div>
+                    </div>
+                    <div id="map">
+                        <!-- Map will be loaded here -->
+                        <div style="height: 100%; display: flex; align-items: center; justify-content: center; background: #f1f1f1; color: #666;">
+                            <p>Map loading... Please enable location services</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-hospital"></i>
+                            Nearby Hospitals
+                        </div>
+                        <div class="timestamp">
+                            Showing 5 closest hospitals
+                        </div>
+                    </div>
+                    <div class="hospital-list">
+                        <div class="hospital-card">
+                            <div class="hospital-icon">
+                                <i class="fas fa-hospital-alt"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <div class="hospital-name">City General Hospital</div>
+                                <div class="hospital-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> 2.3 miles</span>
+                                    <span><i class="fas fa-ambulance"></i> ER Available</span>
+                                    <span><i class="fas fa-clock"></i> 24/7</span>
+                                </div>
+                                <div class="status-indicator status-available">
+                                    <span class="status-dot available"></span>
+                                    Beds Available - Est. wait: 15 min
+                                </div>
+                                <div class="hospital-actions">
+                                    <button class="call-btn">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Call
+                                    </button>
+                                    <button class="directions-btn">
+                                        <i class="fas fa-directions"></i>
+                                        Directions
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="hospital-card">
+                            <div class="hospital-icon">
+                                <i class="fas fa-hospital-alt"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <div class="hospital-name">St. Luke's Hospital</div>
+                                <div class="hospital-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> 1.5 miles</span>
+                                    <span><i class="fas fa-ambulance"></i> ER Full</span>
+                                    <span><i class="fas fa-clock"></i> 24/7</span>
+                                </div>
+                                <div class="status-indicator status-full">
+                                    <span class="status-dot full"></span>
+                                    No Beds Available - Est. wait: 120+ min
+                                </div>
+                                <div class="hospital-actions">
+                                    <button class="call-btn">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Call
+                                    </button>
+                                    <button class="directions-btn">
+                                        <i class="fas fa-directions"></i>
+                                        Directions
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="hospital-card">
+                            <div class="hospital-icon">
+                                <i class="fas fa-hospital-alt"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <div class="hospital-name">Memorial Medical Center</div>
+                                <div class="hospital-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> 3.7 miles</span>
+                                    <span><i class="fas fa-ambulance"></i> ER Limited</span>
+                                    <span><i class="fas fa-clock"></i> 24/7</span>
+                                </div>
+                                <div class="status-indicator status-limited">
+                                    <span class="status-dot limited"></span>
+                                    Limited Beds Available - Est. wait: 45 min
+                                </div>
+                                <div class="hospital-actions">
+                                    <button class="call-btn">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Call
+                                    </button>
+                                    <button class="directions-btn">
+                                        <i class="fas fa-directions"></i>
+                                        Directions
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="hospital-card">
+                            <div class="hospital-icon">
+                                <i class="fas fa-hospital-alt"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <div class="hospital-name">Northeast Medical</div>
+                                <div class="hospital-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> 4.2 miles</span>
+                                    <span><i class="fas fa-ambulance"></i> ER Available</span>
+                                    <span><i class="fas fa-clock"></i> 24/7</span>
+                                </div>
+                                <div class="status-indicator status-available">
+                                    <span class="status-dot available"></span>
+                                    Beds Available - Est. wait: 20 min
+                                </div>
+                                <div class="hospital-actions">
+                                    <button class="call-btn">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Call
+                                    </button>
+                                    <button class="directions-btn">
+                                        <i class="fas fa-directions"></i>
+                                        Directions
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="hospital-card">
+                            <div class="hospital-icon">
+                                <i class="fas fa-hospital-alt"></i>
+                            </div>
+                            <div class="hospital-info">
+                                <div class="hospital-name">Community Health</div>
+                                <div class="hospital-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> 3.1 miles</span>
+                                    <span><i class="fas fa-ambulance"></i> ER Limited</span>
+                                    <span><i class="fas fa-clock"></i> 24/7</span>
+                                </div>
+                                <div class="status-indicator status-limited">
+                                    <span class="status-dot limited"></span>
+                                    Limited Beds Available - Est. wait: 35 min
+                                </div>
+                                <div class="hospital-actions">
+                                    <button class="call-btn">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Call
+                                    </button>
+                                    <button class="directions-btn">
+                                        <i class="fas fa-directions"></i>
+                                        Directions
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Treatment Suggestions Tab -->
+        <div id="treatment-suggestions" class="tab-content">
+            <div class="search-bar">
+                <input type="text" placeholder="Search symptoms or conditions...">
+                <button>Search</button>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-notes-medical"></i>
+                        Quick Action Guide
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <div class="action-btn emergency" onclick="openTreatmentModal('Chest Pain', 'Heart attack symptoms require immediate medical attention.')">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Chest Pain</span>
+                    </div>
+                    <div class="action-btn" onclick="openTreatmentModal('Bleeding', 'Control external bleeding with direct pressure.')">
+                        <i class="fas fa-tint"></i>
+                        <span>Bleeding</span>
+                    </div>
+                    <div class="action-btn" onclick="openTreatmentModal('Breathing Difficulty', 'Respiratory distress requires immediate attention.')">
+                        <i class="fas fa-lungs"></i>
+                        <span>Breathing Difficulty</span>
+                    </div>
+                    <div class="action-btn" onclick="openTreatmentModal('Burns', 'Proper burn treatment can reduce damage and pain.')">
+                        <i class="fas fa-fire"></i>
+                        <span>Burns</span>
+                    </div>
+                    <div class="action-btn" onclick="openTreatmentModal('Allergic Reaction', 'Severe allergic reactions can be life-threatening.')">
+                        <i class="fas fa-allergies"></i>
+                        <span>Allergic Reaction</span>
+                    </div>
+                    <div class="action-btn" onclick="openTreatmentModal('Fractures', 'Immobilize suspected fractures before transport.')">
+                        <i class="fas fa-bone"></i>
+                        <span>Fractures</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="treatment-grid">
+                <div class="treatment-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-procedures"></i>
+                    </div>
+                    <div class="treatment-content">
+                        <h3 class="treatment-title">Emergency Triage Guide</h3>
+                        <p class="treatment-desc">Learn when to seek immediate medical attention versus home care options.</p>
+                        <a href="#" class="view-more" onclick="openTreatmentModal('Emergency Triage', 'Know when to call 911 vs. when to visit urgent care.')">
+                            View Guide <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="treatment-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-first-aid"></i>
+                    </div>
+                    <div class="treatment-content">
+                        <h3 class="treatment-title">First Aid Essentials</h3>
+                        <p class="treatment-desc">Basic first aid procedures for common emergencies until help arrives.</p>
+                        <a href="#" class="view-more" onclick="openTreatmentModal('First Aid', 'Essential first aid procedures everyone should know.')">
+                            View Guide <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="treatment-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <div class="treatment-content">
+                        <h3 class="treatment-title">When to Call a Doctor</h3>
+                        <p class="treatment-desc">Guidelines for deciding whether your symptoms require professional medical care.</p>
+                        <a href="#" class="view-more" onclick="openTreatmentModal('When to Call', 'Signs and symptoms that indicate you should contact a doctor.')">
+                            View Guide <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="treatment-card">
+                    <div class="treatment-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <div class="treatment-content">
+                        <h3 class="treatment-title">Medication Safety</h3>
+                        <p class="treatment-desc">Instructions for common medications and what to do in case of overdose.</p>
+                        <a href="#" class="view-more" onclick="openTreatmentModal('Medication Safety', 'Guidelines for safe medication use and handling emergencies.')">
+                            View Guide <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call a Doctor Tab -->
+        <div id="doctor-call" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-phone-alt"></i>
+                        Contact Medical Professionals
+                    </div>
+                </div>
+                
+                <div class="call-options">
+                    <div class="call-option-card">
+                        <div class="call-option-icon emergency">
+                            <i class="fas fa-ambulance"></i>
+                        </div>
+                        <h3 class="call-option-title">Emergency Services</h3>
+                        <p class="call-option-desc">For life-threatening emergencies requiring immediate attention.</p>
+                        <button class="call-action-btn emergency" onclick="emergencyCall()">
+                            <i class="fas fa-phone-alt"></i>
+                            Call 911
+                        </button>
+                    </div>
+                    
+                    <div class="call-option-card">
+                        <div class="call-option-icon doctor">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3 class="call-option-title">On-Call Doctor</h3>
+                        <p class="call-option-desc">Speak with an available doctor for urgent medical advice.</p>
+                        <button class="call-action-btn" onclick="doctorCall()">
+                            <i class="fas fa-phone-alt"></i>
+                            Call Doctor
+                        </button>
+                    </div>
+                    
+                    <div class="call-option-card">
+                        <div class="call-option-icon video">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3 class="call-option-title">Video Consultation</h3>
+                        <p class="call-option-desc">Schedule a video appointment with a healthcare professional.</p>
+                        <button class="call-action-btn video" onclick="videoCall()">
+                            <i class="fas fa-video"></i>
+                            Start Video Call
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card" style="margin-top: 30px;">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <i class="fas fa-clipboard-list"></i>
+                            Pre-Registration Form
+                        </div>
+                    </div>
+                    <form id="pre-registration">
+                        <div style="margin-bottom: 15px;">
+                            <label for="full-name" style="display: block; margin-bottom: 5px; font-weight: 500;">Full Name</label>
+                            <input type="text" id="full-name" placeholder="Enter your full name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label for="dob" style="display: block; margin-bottom: 5px; font-weight: 500;">Date of Birth</label>
+                            <input type="date" id="dob" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label for="symptoms" style="display: block; margin-bottom: 5px; font-weight: 500;">Primary Symptoms</label>
+                            <textarea id="symptoms" placeholder="Describe your symptoms" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-height: 100px;"></textarea>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label for="insurance" style="display: block; margin-bottom: 5px; font-weight: 500;">Insurance Information (Optional)</label>
+                            <input type="text" id="insurance" placeholder="Insurance provider and ID" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        
+                        <button type="submit" style="background-color: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: 500;">
+                            Submit Information
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p class="footer-disclaimer">
+                This website provides general information and is not a substitute for professional medical advice. 
+                In case of emergency, always call 911 or your local emergency number immediately.
+            </p>
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Contact</a>
+                <a href="#">Help</a>
+            </div>
+            <p class="footer-timestamp">
+                Last data update: March 21, 2025 11:45 AM
+            </p>
+        </div>
+    </footer>
+
+    <!-- Treatment Modal -->
+    <div id="treatmentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeTreatmentModal()">&times;</span>
+            <h2 class="modal-title" id="treatment-modal-title">First Aid Guide</h2>
+            <div id="treatment-modal-content">
+                <!-- Content will be loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="call-btn" onclick="emergencyCall()">
+                    <i class="fas fa-phone-alt"></i>
+                    Emergency Call
+                </button>
+                <button onclick="closeTreatmentModal()" style="background-color: #eee; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer;">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call Modal -->
+    <div id="callModal" class="modal">
+        <div class="modal-content" style="max-width: 400px; text-align: center;">
+            <span class="close-btn" onclick="closeCallModal()">&times;</span>
+            <h2 class="modal-title">Emergency Call</h2>
+            <div style="margin: 30px 0;">
+                <div style="font-size: 2rem; color: var(--emergency); margin-bottom: 15px;">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <p style="font-size: 1.5rem; font-weight: bold; margin-bottom: 5px;">911</p>
+                <p style="color: var(--light-text);">Tap to call emergency services</p>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button onclick="window.location.href='tel:911'" style="background-color: var(--emergency); color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-weight: 500;">
+                    Call Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+         function openTreatmentModal(title, introText) {
+            const modal = document.getElementById('treatmentModal');
+            const modalTitle = document.getElementById('treatment-modal-title');
+            const modalContent = document.getElementById('treatment-modal-content');
+            
+            modalTitle.textContent = title;
+            
+            // Generate content based on the treatment type
+            let content = `<p style="margin-bottom: 20px; color: var(--light-text); line-height: 1.6;">${introText}</p>`;
+            
+            content += `<div class="treatment-steps">`;
+            
+            // Example steps - in a real app, these would be dynamically loaded from a database
+            if (title === 'Chest Pain') {
+                content += createStep(1, 'Call 911 Immediately', 'Chest pain could indicate a heart attack. Do not drive yourself to the hospital.');
+                content += createStep(2, 'Take Aspirin', 'If advised by a healthcare professional and not allergic, chew a standard 325 mg aspirin.');
+                content += createStep(3, 'Rest in a Comfortable Position', 'Sit or lie in a position that eases breathing, typically sitting up with support.');
+                content += createStep(4, 'Loosen Tight Clothing', 'Loosen any tight clothing, especially around the chest or neck area.');
+            } else if (title === 'Bleeding') {
+                content += createStep(1, 'Apply Direct Pressure', 'Use a clean cloth or bandage and apply firm pressure directly to the wound.');
+                content += createStep(2, 'Elevate the Area', 'If possible, raise the injured area above the level of the heart to reduce blood flow.');
+                content += createStep(3, 'Add More Bandages If Needed', 'If blood soaks through, add more bandages without removing the original dressing.');
+                content += createStep(4, 'Seek Medical Attention', 'For severe bleeding or wounds that won\'t stop bleeding after 15 minutes of pressure.');
+            } else {
+                // Generic steps for other conditions
+                content += createStep(1, 'Assess the Situation', 'Determine the severity and whether immediate medical attention is required.');
+                content += createStep(2, 'Take Appropriate First Aid Measures', 'Follow specific guidelines for the condition while waiting for help.');
+                content += createStep(3, 'Monitor for Changes', 'Keep track of symptoms, vital signs, and overall condition.');
+                content += createStep(4, 'Seek Professional Medical Care', 'Contact emergency services or visit a healthcare facility as needed.');
+            }
+            
+            content += `</div>`;
+            
+            modalContent.innerHTML = content;
+            modal.style.display = 'block';
+        }
+
+        function createStep(number, title, description) {
+            return `
+                <div class="treatment-step">
+                    <div class="step-number">${number}</div>
+                    <div class="step-content">
+                        <div class="step-title">${title}</div>
+                        <div class="step-desc">${description}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function closeTreatmentModal() {
+            document.getElementById('treatmentModal').style.display = 'none';
+        }
+
+        // Call modal functionality
+        function openCallModal() {
+            document.getElementById('callModal').style.display = 'block';
+        }
+
+        function closeCallModal() {
+            document.getElementById('callModal').style.display = 'none';
+        }
+
+        // Emergency call function
+        function emergencyCall() {
+            openCallModal();
+        }
+
+        // Doctor call function
+        function doctorCall() {
+            // In a real application, this would connect to a doctor or telemedicine service
+            alert('Connecting to available doctor. Please wait...');
+        }
+
+        // Video call function
+        function videoCall() {
+            // In a real application, this would initiate a video call session
+            alert('Preparing video consultation. Loading secure connection...');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const treatmentModal = document.getElementById('treatmentModal');
+            const callModal = document.getElementById('callModal');
+            
+            if (event.target === treatmentModal) {
+                treatmentModal.style.display = 'none';
+            }
+            
+            if (event.target === callModal) {
+                callModal.style.display = 'none';
+            }
+        };
+
+        // Form submission
+        document.getElementById('pre-registration').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your information has been submitted. A medical professional will contact you shortly.');
+        });
+
+        // Simulated map loading - in a real application, this would use a mapping API
+        function initMap() {
+            // This function would normally initialize a map like Google Maps
+            // For demonstration purposes, we're showing a placeholder
+            const mapElement = document.getElementById('map');
+            mapElement.innerHTML = `
+                <div style="height: 100%; background-color: #e0f7fa; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #00838f; padding: 20px; text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 style="margin-bottom: 10px;">Map View</h3>
+                    <p>In a live implementation, this would display an interactive map showing nearby hospitals with their emergency status.</p>
+                </div>
+            `;
+        }
+       document.addEventListener('DOMContentLoaded', function() {
+    // Tab switching functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    if (tabButtons.length > 0) {
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and tabs
+                tabButtons.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding tab
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    }
+    
+    
+
+    // Chatbot functionality
+    const chatbotToggle = document.getElementById('chatbot-toggle');
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const minimizeChatbot = document.getElementById('minimize-chatbot');
+    const closeChatbot = document.getElementById('close-chatbot');
+    const sendMessage = document.getElementById('send-message');
+    const userMessage = document.getElementById('user-message');
+    const chatbotMessages = document.getElementById('chatbot-messages');
+
+    // Store chat history
+    let chatHistory = [];
+    
+    // Welcome messages
+    const welcomeMessages = [
+        {
+            content: `<div>
+                <p>👋 Hello! I'm your <strong>HopeWay Assistant</strong>. How can I help you today?</p>
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="handleQuickAction('emergency')">
+                        <i class="fas fa-exclamation-circle"></i> Emergency
+                    </button>
+                    <button class="quick-action-btn" onclick="handleQuickAction('find-hospital')">
+                        <i class="fas fa-hospital"></i> Find Hospital
+                    </button>
+                    <button class="quick-action-btn" onclick="handleQuickAction('contact-doctor')">
+                        <i class="fas fa-user-md"></i> Contact Doctor
+                    </button>
+                </div>
+            </div>`,
+            isUser: false
+        },
+        {
+            content: `<div>
+                <p>I can help you with:</p>
+                <div class="suggestion-chips">
+                    <div class="suggestion-chip" onclick="selectSuggestion('What should I do for chest pain?')">Chest pain</div>
+                    <div class="suggestion-chip" onclick="selectSuggestion('Find the closest hospital')">Nearby hospitals</div>
+                    <div class="suggestion-chip" onclick="selectSuggestion('ER vs urgent care')">ER vs urgent care</div>
+                    <div class="suggestion-chip" onclick="selectSuggestion('How to stop bleeding')">First aid</div>
+                    <div class="suggestion-chip" onclick="selectSuggestion('Contact a doctor')">Doctor contact</div>
+                </div>
+            </div>`,
+            isUser: false
+        }
+    ];
+
+    // Make these functions available globally
+    window.selectSuggestion = function(suggestion) {
+        userMessage.value = suggestion;
+        sendMessage.click();
+    };
+    
+    window.handleQuickAction = function(action) {
+        switch(action) {
+            case 'emergency':
+                addMessage("I need help with an emergency situation", true);
+                showTypingIndicator();
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addMessage(`<strong>For medical emergencies:</strong><br>
+                    <ul>
+                        <li>Call 911 immediately for life-threatening situations</li>
+                        <li>For severe bleeding, chest pain, difficulty breathing, or major injuries, go to the nearest ER</li>
+                        <li>Stay calm and follow dispatcher instructions</li>
+                    </ul>
+                    <button class="quick-action-btn" onclick="window.emergencyCall()">
+                        <i class="fas fa-phone"></i> Call 911
+                    </button>`);
+                }, 1000);
+                break;
+            case 'find-hospital':
+                addMessage("I need to find a hospital", true);
+                showTypingIndicator();
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addMessage(`To find the closest hospital:<br>
+                    <ul>
+                        <li>Click on the "Nearby Hospitals" tab at the top of this page</li>
+                        <li>Enable location services when prompted</li>
+                        <li>View the map showing hospitals in your area with current ER wait times</li>
+                        <li>Tap on any hospital to see more details and get directions</li>
+                    </ul>
+                    Would you like me to help you navigate to the hospital finder?`);
+                }, 1000);
+                break;
+            case 'contact-doctor':
+                addMessage("I need to contact a doctor", true);
+                showTypingIndicator();
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addMessage(`You have several options to speak with a medical professional:<br>
+                    <ul>
+                        <li>Click on the "Call a Doctor" tab for telemedicine options</li>
+                        <li>Schedule a video consultation (typically available within 15-30 minutes)</li>
+                        <li>Speak with an on-call doctor by phone</li>
+                    </ul>
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" onclick="window.doctorCall()">
+                            <i class="fas fa-phone"></i> Call Doctor
+                        </button>
+                        <button class="quick-action-btn" onclick="window.videoCall()">
+                            <i class="fas fa-video"></i> Video Chat
+                        </button>
+                    </div>`);
+                }, 1000);
+                break;
+        }
+    };
+
+    // Make these functions available globally
+    window.emergencyCall = function() {
+        console.log("Emergency call initiated");
+        alert("Initiating emergency call to 911");
+    };
+
+    window.doctorCall = function() {
+        console.log("Doctor call initiated");
+        alert("Connecting to an on-call doctor");
+    };
+
+    window.videoCall = function() {
+        console.log("Video call initiated");
+        alert("Preparing video consultation");
+    };
+
+    window.openCallModal = function() {
+        console.log("Call modal opened");
+        alert("Calling emergency services: 911");
+    };
+
+    // Show typing indicator
+    function showTypingIndicator() {
+        const indicator = document.createElement('div');
+        indicator.className = 'typing-indicator';
+        indicator.id = 'typing-indicator';
+        indicator.innerHTML = `
+            <span></span>
+            <span></span>
+            <span></span>
+        `;
+        chatbotMessages.appendChild(indicator);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    // Hide typing indicator
+    function hideTypingIndicator() {
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) {
+            indicator.remove();
+        }
+    }
+
+    // Function to add messages to the chat
+    function addMessage(content, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = isUser ? 'message user' : 'message assistant';
+        
+        const currentTime = new Date();
+        const hours = currentTime.getHours().toString().padStart(2, '0');
+        const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+        const timeString = `${hours}:${minutes}`;
+        
+        messageDiv.innerHTML = `
+            <div class="message-content">${content}</div>
+            <div class="message-time">${timeString}</div>
+        `;
+        
+        chatbotMessages.appendChild(messageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        
+        // Store in chat history if not already there
+        if (!chatHistory.some(msg => msg.content === content && msg.isUser === isUser)) {
+            chatHistory.push({ content, isUser });
+        }
+    }
+
+    // Show welcome messages with a typing effect
+    function showWelcomeMessages() {
+        showTypingIndicator();
+        
+        setTimeout(() => {
+            hideTypingIndicator();
+            addMessage(welcomeMessages[0].content, welcomeMessages[0].isUser);
+            
+            setTimeout(() => {
+                showTypingIndicator();
+                
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    addMessage(welcomeMessages[1].content, welcomeMessages[1].isUser);
+                    
+                    // Add to history
+                    chatHistory = chatHistory.concat(welcomeMessages);
+                }, 800);
+            }, 500);
+        }, 1000);
+    }
+
+    // Process user message and generate response
+    function processMessage(message) {
+        // Simple pattern matching for responses
+        let response = '';
+        const lowercaseMsg = message.toLowerCase();
+        
+        if (lowercaseMsg.includes('chest pain') || lowercaseMsg.includes('heart attack')) {
+            response = `<strong>Chest pain could be serious.</strong> If you or someone else is experiencing chest pain, especially with symptoms like:
+            <ul>
+                <li>Shortness of breath</li>
+                <li>Sweating or cold sweat</li>
+                <li>Nausea or vomiting</li>
+                <li>Pain radiating to the arm, shoulder, jaw, or back</li>
+                <li>Dizziness or lightheadedness</li>
+            </ul>
+            <strong>Call 911 immediately.</strong> This could be a sign of a heart attack, which requires immediate medical attention.
+            <button class="quick-action-btn" onclick="window.emergencyCall()">
+                <i class="fas fa-phone"></i> Call 911
+            </button>`;
+        } 
+        else if (lowercaseMsg.includes('closest hospital') || lowercaseMsg.includes('nearby hospital') || lowercaseMsg.includes('find hospital')) {
+            response = `To find the closest hospital:
+            <ul>
+                <li>Click on the "Nearby Hospitals" tab at the top of the page</li>
+                <li>The map shows all hospitals within a 20-mile radius</li>
+                <li>Green markers indicate shorter ER wait times</li>
+                <li>Yellow/red markers indicate longer wait times</li>
+                <li>Click on any hospital to see:
+                    <ul>
+                        <li>Current ER wait time</li>
+                        <li>Hospital contact information</li>
+                        <li>Directions from your location</li>
+                    </ul>
+                </li>
+            </ul>
+            Would you like me to help you navigate to a specific hospital?`;
+        }
+        else if (lowercaseMsg.includes('er') && lowercaseMsg.includes('urgent care')) {
+            response = `<strong>ER vs. Urgent Care:</strong><br>
+            <ul>
+            <li><strong>Emergency Room (ER):</strong> For life-threatening conditions like chest pain, severe bleeding, difficulty breathing, or major injuries. Open 24/7.</li>
+            <li><strong>Urgent Care:</strong> For non-life-threatening issues that still need prompt attention, like minor fractures, cuts requiring stitches, or high fever. Usually more affordable than ER visits with shorter wait times.</li>
+            </ul>
+            <strong>Go to ER for:</strong>
+            <ul>
+                <li>Chest pain or difficulty breathing</li>
+                <li>Severe abdominal pain</li>
+                <li>Severe bleeding</li>
+                <li>Major trauma or injuries</li>
+                <li>Stroke symptoms (face drooping, arm weakness, speech difficulties)</li>
+                <li>Severe allergic reactions</li>
+            </ul>
+            <strong>Go to Urgent Care for:</strong>
+            <ul>
+                <li>Minor cuts or burns</li>
+                <li>Sprains or minor fractures</li>
+                <li>Fever without rash</li>
+                <li>Vomiting or diarrhea</li>
+                <li>Urinary tract infections</li>
+                <li>Minor allergic reactions</li>
+            </ul>
+            Check the "Emergency Beds" tab to see current wait times for both options.`;
+        }
+        else if (lowercaseMsg.includes('contact') && lowercaseMsg.includes('doctor')) {
+            response = `To contact a doctor, you have several options:
+            <ol>
+                <li>Click on the "Call a Doctor" tab</li>
+                <li>Choose from:
+                    <ul>
+                        <li>Emergency services (911)</li>
+                        <li>On-call doctor (available 24/7)</li>
+                        <li>Video consultation (typically available within 15-30 minutes)</li>
+                    </ul>
+                </li>
+                <li>Complete the pre-registration form to speed up the process</li>
+            </ol>
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="window.doctorCall()">
+                    <i class="fas fa-phone"></i> Call Doctor
+                </button>
+                <button class="quick-action-btn" onclick="window.videoCall()">
+                    <i class="fas fa-video"></i> Video Chat
+                </button>
+            </div>`;
+        }
+        else if (lowercaseMsg.includes('bleeding')) {
+            response = `<strong>For bleeding control:</strong><br>
+            <ol>
+                <li>Apply direct pressure to the wound with a clean cloth or bandage</li>
+                <li>If possible, elevate the injured area above the heart</li>
+                <li>Apply pressure for at least 15 minutes</li>
+                <li>If bleeding doesn't stop or is severe (spurting blood, pools of blood, or blood-soaked materials), call 911 immediately</li>
+            </ol>
+            
+            <strong>For severe bleeding:</strong>
+            <ul>
+                <li>Use a tourniquet only as a last resort for life-threatening limb bleeding</li>
+                <li>Apply 2-3 inches above the bleeding site, never on a joint</li>
+                <li>Tighten until bleeding stops</li>
+                <li>Note the time applied</li>
+                <li>Do not remove once applied</li>
+            </ul>
+            
+            You can find more detailed first aid instructions in the "Treatment Guide" tab.
+            <button class="quick-action-btn" onclick="window.emergencyCall()">
+                <i class="fas fa-phone"></i> Call 911
+            </button>`;
+        }
+        else if (lowercaseMsg.includes('burn')) {
+            response = `<strong>For burn treatment:</strong><br>
+            <ol>
+                <li>Run cool (not cold) water over the burn for 10-15 minutes</li>
+                <li>Don't apply ice, butter, or ointments to serious burns</li>
+                <li>Cover with a clean, non-stick bandage</li>
+                <li>Take over-the-counter pain relievers if needed</li>
+            </ol>
+            
+            <strong>Seek immediate medical attention for:</strong>
+            <ul>
+                <li>Burns larger than 3 inches</li>
+                <li>Deep burns that affect all layers of skin (appear dry, leathery)</li>
+                <li>Burns on the face, hands, feet, genitals, or major joints</li>
+                <li>Burns that encircle a limb or body part</li>
+                <li>Chemical or electrical burns</li>
+                <li>Burns with signs of infection (increased pain, redness, swelling, oozing)</li>
+            </ul>
+            
+            <button class="quick-action-btn" onclick="window.emergencyCall()">
+                <i class="fas fa-phone"></i> Call 911
+            </button>`;
+        }
+        else if (lowercaseMsg.includes('hello') || lowercaseMsg.includes('hi') || lowercaseMsg.includes('hey')) {
+            response = `Hello! I'm your HopeWay assistant. How can I help you today?
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="window.handleQuickAction('emergency')">
+                    <i class="fas fa-exclamation-circle"></i> Emergency
+                </button>
+                <button class="quick-action-btn" onclick="window.handleQuickAction('find-hospital')">
+                    <i class="fas fa-hospital"></i> Find Hospital
+                </button>
+                <button class="quick-action-btn" onclick="window.handleQuickAction('contact-doctor')">
+                    <i class="fas fa-user-md"></i> Contact Doctor
+                </button>
+            </div>`;
+        }
+        else if (lowercaseMsg.includes('thank')) {
+            response = `You're welcome! I'm here to help. Is there anything else I can assist you with today?
+            <div class="suggestion-chips">
+                <div class="suggestion-chip" onclick="window.selectSuggestion('Find nearest hospital')">Nearby hospitals</div>
+                <div class="suggestion-chip" onclick="window.selectSuggestion('ER vs urgent care')">ER vs urgent care</div>
+                <div class="suggestion-chip" onclick="window.selectSuggestion('First aid tips')">First aid tips</div>
+            </div>`;
+        }
+        else if (lowercaseMsg.includes('first aid') || lowercaseMsg.includes('emergency kit')) {
+            response = `<strong>Basic First Aid Tips:</strong>
+            <ul>
+                <li><strong>Bleeding:</strong> Apply direct pressure with clean cloth</li>
+                <li><strong>Burns:</strong> Cool with running water for 10-15 min</li>
+                <li><strong>Sprains:</strong> RICE (Rest, Ice, Compression, Elevation)</li>
+                <li><strong>Choking:</strong> Abdominal thrusts (Heimlich maneuver)</li>
+                <li><strong>Heart Attack:</strong> Call 911, chew aspirin if available</li>
+            </ul>
+            
+            <strong>Emergency Kit Essentials:</strong>
+            <ul>
+                <li>Bandages and gauze in various sizes</li>
+                <li>Antiseptic wipes and antibiotic ointment</li>
+                <li>Adhesive tape and scissors</li>
+                <li>Tweezers and safety pins</li>
+                <li>Instant cold packs</li>
+                <li>Disposable gloves</li>
+                <li>Thermometer</li>
+                <li>First aid manual</li>
+            </ul>
+            
+            Would you like more specific first aid information?`;
+        }
+        else {
+            response = `I'm not sure I understand your question about "${message}". I can help with:
+            <div class="suggestion-chips">
+                <div class="suggestion-chip" onclick="window.selectSuggestion('Find nearest hospital')">Find hospital</div>
+                <div class="suggestion-chip" onclick="window.selectSuggestion('ER vs urgent care')">ER vs urgent care</div>
+                <div class="suggestion-chip" onclick="window.selectSuggestion('How to contact a doctor')">Contact doctor</div>
+                <div class="suggestion-chip" onclick="window.selectSuggestion('First aid tips')">First aid tips</div>
+                <div class="suggestion-chip" onclick="window.selectSuggestion('What to do for chest pain')">Chest pain help</div>
+            </div>`;
+        }
+        
+        return response;
+    }
+
+    // Toggle chatbot visibility and initialize chat
+    chatbotToggle.addEventListener('click', function() {
+        console.log("Chatbot toggled");
+        chatbotContainer.style.display = chatbotContainer.style.display === 'flex' ? 'none' : 'flex';
+        
+        // If this is the first time opening, show welcome messages
+        if (chatHistory.length === 0) {
+            // Clear any existing messages
+            chatbotMessages.innerHTML = '';
+            
+            // Add welcome messages with delay
+            showWelcomeMessages();
+        }
+    });
+
+    // Minimize chatbot
+    if (minimizeChatbot) {
+        minimizeChatbot.addEventListener('click', function() {
+            chatbotContainer.style.display = 'none';
+        });
+    }
+
+    // Close chatbot
+    if (closeChatbot) {
+        closeChatbot.addEventListener('click', function() {
+            chatbotContainer.style.display = 'none';
+        });
+    }
+
+    // Send message when button is clicked
+    if (sendMessage && userMessage) {
+        sendMessage.addEventListener('click', function() {
+            const message = userMessage.value.trim();
+            if (message) {
+                // Add user message to chat
+                addMessage(message, true);
+                
+                // Clear input
+                userMessage.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Simulate AI response delay (varies based on message length)
+                const responseDelay = Math.min(1000, 400 + message.length * 10);
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    // Process message and add response
+                    const response = processMessage(message);
+                    addMessage(response);
+                }, responseDelay);
+            }
+        });
+
+        // Send message when Enter key is pressed
+        userMessage.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage.click();
+            }
+        });
+    }
+});
+    </script>
+    <!-- Add this right before the closing </body> tag -->
+
+<!-- Chatbot Widget -->
+<div class="chatbot-widget">
+    <div class="chatbot-button" id="chatbot-toggle">
+        <i class="fas fa-comment-medical"></i>
+    </div>
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <i class="fas fa-robot"></i>
+                HopeWay Assistant
+            </div>
+            <div class="chatbot-controls">
+                
+                <span class="close-btn" id="close-chatbot">
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <!-- Initial welcome messages will be added by JavaScript -->
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="user-message" placeholder="Type your question here...">
+            <button id="send-message">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Add this to your CSS styles section -->
+<style>
+    .chatbot-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .chatbot-button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-size: 24px;
+        transition: all 0.3s ease;
+    }
+
+    .chatbot-button:hover {
+        background-color: var(--primary-dark);
+        transform: scale(1.05);
+    }
+
+    .chatbot-container {
+        position: absolute;
+        bottom: 70px;
+        right: 0;
+        width: 350px;
+        max-height: 500px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        display: none;
+        flex-direction: column;
+        transition: all 0.3s ease;
+    }
+
+    .chatbot-header {
+        background-color: var(--primary);
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .chatbot-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+    }
+
+    .chatbot-controls {
+        display: flex;
+        gap: 10px;
+    }
+
+    .chatbot-controls span {
+        cursor: pointer;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    .chatbot-controls span:hover {
+        opacity: 1;
+    }
+
+    .chatbot-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-height: 350px;
+    }
+
+    .message {
+        max-width: 85%;
+        padding: 10px 15px;
+        border-radius: 15px;
+        position: relative;
+    }
+
+    .message.user {
+        align-self: flex-end;
+        background-color: var(--primary);
+        color: white;
+        border-bottom-right-radius: 5px;
+    }
+
+    .message.assistant {
+        align-self: flex-start;
+        background-color: #f1f1f1;
+        color: var(--text);
+        border-bottom-left-radius: 5px;
+    }
+
+    .message-content {
+        line-height: 1.4;
+    }
+
+    .message-content ul {
+        margin-top: 5px;
+        margin-left: 20px;
+    }
+
+    .message-content ul li {
+        margin-bottom: 3px;
+    }
+
+    .message-time {
+        font-size: 0.7rem;
+        opacity: 0.7;
+        margin-top: 5px;
+        text-align: right;
+    }
+
+    .chatbot-input {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #eee;
+    }
+
+    .chatbot-input input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        outline: none;
+    }
+
+    .chatbot-input input:focus {
+        border-color: var(--primary);
+    }
+
+    .chatbot-input button {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .chatbot-input button:hover {
+        background-color: var(--primary-dark);
+    }
+
+    .chatbot-open {
+        display: flex;
+    }
+
+    .suggestion-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .suggestion-chip {
+        background-color: var(--light-gray, #e9e9e9);
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .suggestion-chip:hover {
+        background-color: #e0e0e0;
+    }
+
+    /* Add a typing indicator animation */
+    .typing-indicator {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 10px;
+        background-color: #f1f1f1;
+        border-radius: 15px;
+        align-self: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .typing-indicator span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #aaa;
+        display: inline-block;
+        animation: typing 1.5s infinite ease-in-out;
+    }
+
+    .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+        0%, 60%, 100% {
+            transform: translateY(0);
+        }
+        30% {
+            transform: translateY(-5px);
+        }
+    }
+    
+    /* Quick action buttons styling */
+    .quick-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    .quick-action-btn {
+        background-color: var(--primary, #4285f4);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .quick-action-btn:hover {
+        background-color: var(--primary-dark, #3367d6);
+        transform: translateY(-2px);
+    }
+    
+    .quick-action-btn i {
+        font-size: 0.8rem;
+    }
+</style>
+
+<!-- Add this script right before the closing </body> tag -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tab switching functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        if (tabButtons.length > 0) {
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and tabs
+                    tabButtons.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding tab
+                    button.classList.add('active');
+                    const tabId = button.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+
+        // Chatbot functionality
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotContainer = document.getElementById('chatbot-container');
+        const minimizeChatbot = document.getElementById('minimize-chatbot');
+        const closeChatbot = document.getElementById('close-chatbot');
+        const sendMessage = document.getElementById('send-message');
+        const userMessage = document.getElementById('user-message');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+
+        // Store chat history
+        let chatHistory = [];
+        
+        // Welcome messages
+        const welcomeMessages = [
+            {
+                content: `<div>
+                    <p>👋 Hello! I'm your <strong>HopeWay Assistant</strong>. How can I help you today?</p>
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" onclick="handleQuickAction('emergency')">
+                            <i class="fas fa-exclamation-circle"></i> Emergency
+                        </button>
+                        <button class="quick-action-btn" onclick="handleQuickAction('find-hospital')">
+                            <i class="fas fa-hospital"></i> Find Hospital
+                        </button>
+                        <button class="quick-action-btn" onclick="handleQuickAction('contact-doctor')">
+                            <i class="fas fa-user-md"></i> Contact Doctor
+                        </button>
+                    </div>
+                </div>`,
+                isUser: false
+            },
+            {
+                content: `<div>
+                    <p>I can help you with:</p>
+                    <div class="suggestion-chips">
+                        <div class="suggestion-chip" onclick="selectSuggestion('What should I do for chest pain?')">Chest pain</div>
+                        <div class="suggestion-chip" onclick="selectSuggestion('Find the closest hospital')">Nearby hospitals</div>
+                        <div class="suggestion-chip" onclick="selectSuggestion('ER vs urgent care')">ER vs urgent care</div>
+                        <div class="suggestion-chip" onclick="selectSuggestion('How to stop bleeding')">First aid</div>
+                        <div class="suggestion-chip" onclick="selectSuggestion('Contact a doctor')">Doctor contact</div>
+                    </div>
+                </div>`,
+                isUser: false
+            }
+        ];
+
+        // Toggle chatbot visibility and initialize chat
+        chatbotToggle.addEventListener('click', () => {
+            chatbotContainer.classList.toggle('chatbot-open');
+            
+            // If this is the first time opening, show welcome messages
+            if (chatHistory.length === 0) {
+                // Clear any existing messages
+                chatbotMessages.innerHTML = '';
+                
+                // Add welcome messages with delay
+                showWelcomeMessages();
+            }
+        });
+
+        // Show welcome messages with a typing effect
+        function showWelcomeMessages() {
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                hideTypingIndicator();
+                addMessage(welcomeMessages[0].content, welcomeMessages[0].isUser);
+                
+                setTimeout(() => {
+                    showTypingIndicator();
+                    
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addMessage(welcomeMessages[1].content, welcomeMessages[1].isUser);
+                        
+                        // Add to history
+                        chatHistory = chatHistory.concat(welcomeMessages);
+                    }, 800);
+                }, 500);
+            }, 1000);
+        }
+
+        // Minimize chatbot
+        minimizeChatbot.addEventListener('click', () => {
+            chatbotContainer.classList.remove('chatbot-open');
+        });
+
+        // Close chatbot
+        closeChatbot.addEventListener('click', () => {
+            chatbotContainer.classList.remove('chatbot-open');
+        });
+
+        // Function to add messages to the chat
+        function addMessage(content, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = isUser ? 'message user' : 'message assistant';
+            
+            const currentTime = new Date();
+            const hours = currentTime.getHours().toString().padStart(2, '0');
+            const minutes = currentTime.getMinutes().toString().padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+            
+            messageDiv.innerHTML = `
+                <div class="message-content">${content}</div>
+                <div class="message-time">${timeString}</div>
+            `;
+            
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            
+            // Store in chat history if not already there
+            if (!chatHistory.some(msg => msg.content === content && msg.isUser === isUser)) {
+                chatHistory.push({ content, isUser });
+            }
+        }
+
+        // Function to handle suggestion selection
+        window.selectSuggestion = function(suggestion) {
+            userMessage.value = suggestion;
+            sendMessage.click();
+        };
+        
+        // Function to handle quick action buttons
+        window.handleQuickAction = function(action) {
+            switch(action) {
+                case 'emergency':
+                    addMessage("I need help with an emergency situation", true);
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addMessage(`<strong>For medical emergencies:</strong><br>
+                        <ul>
+                            <li>Call 911 immediately for life-threatening situations</li>
+                            <li>For severe bleeding, chest pain, difficulty breathing, or major injuries, go to the nearest ER</li>
+                            <li>Stay calm and follow dispatcher instructions</li>
+                        </ul>
+                        <button class="quick-action-btn" onclick="window.emergencyCall()">
+                            <i class="fas fa-phone"></i> Call 911
+                        </button>`);
+                    }, 1000);
+                    break;
+                case 'find-hospital':
+                    addMessage("I need to find a hospital", true);
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addMessage(`To find the closest hospital:<br>
+                        <ul>
+                            <li>Click on the "Nearby Hospitals" tab at the top of this page</li>
+                            <li>Enable location services when prompted</li>
+                            <li>View the map showing hospitals in your area with current ER wait times</li>
+                            <li>Tap on any hospital to see more details and get directions</li>
+                        </ul>
+                        Would you like me to help you navigate to the hospital finder?`);
+                    }, 1000);
+                    break;
+                case 'contact-doctor':
+                    addMessage("I need to contact a doctor", true);
+                    showTypingIndicator();
+                    setTimeout(() => {
+                        hideTypingIndicator();
+                        addMessage(`You have several options to speak with a medical professional:<br>
+                        <ul>
+                            <li>Click on the "Call a Doctor" tab for telemedicine options</li>
+                            <li>Schedule a video consultation (typically available within 15-30 minutes)</li>
+                            <li>Speak with an on-call doctor by phone</li>
+                        </ul>
+                        <div class="quick-actions">
+                            <button class="quick-action-btn" onclick="window.doctorCall()">
+                                <i class="fas fa-phone"></i> Call Doctor
+                            </button>
+                            <button class="quick-action-btn" onclick="window.videoCall()">
+                                <i class="fas fa-video"></i> Video Chat
+                            </button>
+                        </div>`);
+                    }, 1000);
+                    break;
+            }
+        };
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator';
+            indicator.id = 'typing-indicator';
+            indicator.innerHTML = `
+                <span></span>
+                <span></span>
+                <span></span>
+            `;
+            chatbotMessages.appendChild(indicator);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        // Hide typing indicator
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) {
+                indicator.remove();
+            }
+        }
+
+        // Process user message and generate response
+        function processMessage(message) {
+            // Simple pattern matching for responses
+            let response = '';
+            const lowercaseMsg = message.toLowerCase();
+            
+            if (lowercaseMsg.includes('chest pain') || lowercaseMsg.includes('heart attack')) {
+                response = `<strong>Chest pain could be serious.</strong> If you or someone else is experiencing chest pain, especially with symptoms like:
+                <ul>
+                    <li>Shortness of breath</li>
+                    <li>Sweating or cold sweat</li>
+                    <li>Nausea or vomiting</li>
+                    <li>Pain radiating to the arm, shoulder, jaw, or back</li>
+                    <li>Dizziness or lightheadedness</li>
+                </ul>
+                <strong>Call 911 immediately.</strong> This could be a sign of a heart attack, which requires immediate medical attention.
+                <button class="quick-action-btn" onclick="window.emergencyCall()">
+                    <i class="fas fa-phone"></i> Call 911
+                </button>`;
+            } 
+            else if (lowercaseMsg.includes('closest hospital') || lowercaseMsg.includes('nearby hospital') || lowercaseMsg.includes('find hospital')) {
+                response = `To find the closest hospital:
+                <ul>
+                    <li>Click on the "Nearby Hospitals" tab at the top of the page</li>
+                    <li>The map shows all hospitals within a 20-mile radius</li>
+                    <li>Green markers indicate shorter ER wait times</li>
+                    <li>Yellow/red markers indicate longer wait times</li>
+                    <li>Click on any hospital to see:
+                        <ul>
+                            <li>Current ER wait time</li>
+                            <li>Hospital contact information</li>
+                            <li>Directions from your location</li>
+                        </ul>
+                    </li>
+                </ul>
+                Would you like me to help you navigate to a specific hospital?`;
+            }
+            else if (lowercaseMsg.includes('er') && lowercaseMsg.includes('urgent care')) {
+                response = `<strong>ER vs. Urgent Care:</strong><br>
+                <ul>
+                <li><strong>Emergency Room (ER):</strong> For life-threatening conditions like chest pain, severe bleeding, difficulty breathing, or major injuries. Open 24/7.</li>
+                <li><strong>Urgent Care:</strong> For non-life-threatening issues that still need prompt attention, like minor fractures, cuts requiring stitches, or high fever. Usually more affordable than ER visits with shorter wait times.</li>
+                </ul>
+                <strong>Go to ER for:</strong>
+                <ul>
+                    <li>Chest pain or difficulty breathing</li>
+                    <li>Severe abdominal pain</li>
+                    <li>Severe bleeding</li>
+                    <li>Major trauma or injuries</li>
+                    <li>Stroke symptoms (face drooping, arm weakness, speech difficulties)</li>
+                    <li>Severe allergic reactions</li>
+                </ul>
+                <strong>Go to Urgent Care for:</strong>
+                <ul>
+                    <li>Minor cuts or burns</li>
+                    <li>Sprains or minor fractures</li>
+                    <li>Fever without rash</li>
+                    <li>Vomiting or diarrhea</li>
+                    <li>Urinary tract infections</li>
+                    <li>Minor allergic reactions</li>
+                </ul>
+                Check the "Emergency Beds" tab to see current wait times for both options.`;
+            }
+            else if (lowercaseMsg.includes('contact') && lowercaseMsg.includes('doctor')) {
+                response = `To contact a doctor, you have several options:
+                <ol>
+                    <li>Click on the "Call a Doctor" tab</li>
+                    <li>Choose from:
+                        <ul>
+                            <li>Emergency services (911)</li>
+                            <li>On-call doctor (available 24/7)</li>
+                            <li>Video consultation (typically available within 15-30 minutes)</li>
+                        </ul>
+                    </li>
+                    <li>Complete the pre-registration form to speed up the process</li>
+                </ol>
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="window.doctorCall()">
+                        <i class="fas fa-phone"></i> Call Doctor
+                    </button>
+                    <button class="quick-action-btn" onclick="window.videoCall()">
+                        <i class="fas fa-video"></i> Video Chat
+                    </button>
+                </div>`;
+            }
+            else if (lowercaseMsg.includes('bleeding')) {
+                response = `<strong>For bleeding control:</strong><br>
+                <ol>
+                    <li>Apply direct pressure to the wound with a clean cloth or bandage</li>
+                    <li>If possible, elevate the injured area above the heart</li>
+                    <li>Apply pressure for at least 15 minutes</li>
+                    <li>If bleeding doesn't stop or is severe (spurting blood, pools of blood, or blood-soaked materials), call 911 immediately</li>
+                </ol>
+                
+                <strong>For severe bleeding:</strong>
+                <ul>
+                    <li>Use a tourniquet only as a last resort for life-threatening limb bleeding</li>
+                    <li>Apply 2-3 inches above the bleeding site, never on a joint</li>
+                    <li>Tighten until bleeding stops</li>
+                    <li>Note the time applied</li>
+                    <li>Do not remove once applied</li>
+                </ul>
+                
+                You can find more detailed first aid instructions in the "Treatment Guide" tab.
+                <button class="quick-action-btn" onclick="window.emergencyCall()">
+                    <i class="fas fa-phone"></i> Call 911
+                </button>`;
+            }
+            else if (lowercaseMsg.includes('burn')) {
+                response = `<strong>For burn treatment:</strong><br>
+                <ol>
+                    <li>Run cool (not cold) water over the burn for 10-15 minutes</li>
+                    <li>Don't apply ice, butter, or ointments to serious burns</li>
+                    <li>Cover with a clean, non-stick bandage</li>
+                    <li>Take over-the-counter pain relievers if needed</li>
+                </ol>
+                
+                <strong>Seek immediate medical attention for:</strong>
+                <ul>
+                    <li>Burns larger than 3 inches</li>
+                    <li>Deep burns that affect all layers of skin (appear dry, leathery)</li>
+                    <li>Burns on the face, hands, feet, genitals, or major joints</li>
+                    <li>Burns that encircle a limb or body part</li>
+                    <li>Chemical or electrical burns</li>
+                    <li>Burns with signs of infection (increased pain, redness, swelling, oozing)</li>
+                </ul>
+                
+                <button class="quick-action-btn" onclick="window.emergencyCall()">
+                    <i class="fas fa-phone"></i> Call 911
+                </button>`;
+            }
+            else if (lowercaseMsg.includes('hello') || lowercaseMsg.includes('hi') || lowercaseMsg.includes('hey')) {
+                response = `Hello! I'm your HopeWay assistant. How can I help you today?
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="handleQuickAction('emergency')">
+                        <i class="fas fa-exclamation-circle"></i> Emergency
+                    </button>
+                    <button class="quick-action-btn" onclick="handleQuickAction('find-hospital')">
+                        <i class="fas fa-hospital"></i> Find Hospital
+                    </button>
+                    <button class="quick-action-btn" onclick="handleQuickAction('contact-doctor')">
+                        <i class="fas fa-user-md"></i> Contact Doctor
+                    </button>
+                </div>`;
+            }
+            else if (lowercaseMsg.includes('thank')) {
+                response = `You're welcome! I'm here to help. Is there anything else I can assist you with today?
+                <div class="suggestion-chips">
+                    <div class="suggestion-chip" onclick="selectSuggestion('Find nearest hospital')">Nearby hospitals</div>
+                    <div class="suggestion-chip" onclick="selectSuggestion('ER vs urgent care')">ER vs urgent care</div>
+                    <div class="suggestion-chip" onclick="selectSuggestion('First aid tips')">First aid tips</div>
+                </div>`;
+            }
+            else if (lowercaseMsg.includes('first aid') || lowercaseMsg.includes('emergency kit')) {
+                response = `<strong>Basic First Aid Tips:</strong>
+                <ul>
+                    <li><strong>Bleeding:</strong> Apply direct pressure with clean cloth</li>
+                    <li><strong>Burns:</strong> Cool with running water for 10-15 min</li>
+                    <li><strong>Sprains:</strong> RICE (Rest, Ice, Compression, Elevation)</li>
+                    <li><strong>Choking:</strong> Abdominal thrusts (Heimlich maneuver)</li>
+                    <li><strong>Heart Attack:</strong> Call 911, chew aspirin if available</li>
+                </ul>
+                
+                <strong>Emergency Kit Essentials:</strong>
+                <ul>
+                    <li>Bandages and gauze in various sizes</li>
+                    <li>Antiseptic wipes and antibiotic ointment</li>
+                    <li>Adhesive tape and scissors</li>
+                    <li>Tweezers and safety pins</li>
+                    <li>Instant cold packs</li>
+                    <li>Disposable gloves</li>
+                    <li>Thermometer</li>
+                    <li>First aid manual</li>
+                </ul>
+                
+                Would you like more specific first aid information?`;
+            }
+            else {
+                response = `I'm not sure I understand your question about "${message}". I can help with:
+                <div class="suggestion-chips">
+                    <div class="suggestion-chip" onclick="selectSuggestion('Find nearest hospital')">Find hospital</div>
+                    <div class="suggestion-chip" onclick="selectSuggestion('ER vs urgent care')">ER vs urgent care</div>
+                    <div class="suggestion-chip" onclick="selectSuggestion('How to contact a doctor')">Contact doctor</div>
+                    <div class="suggestion-chip" onclick="selectSuggestion('First aid tips')">First aid tips</div>
+                    <div class="suggestion-chip" onclick="selectSuggestion('What to do for chest pain')">Chest pain help</div>
+                </div>`;
+            }
+            
+            return response;
+        }
+
+        // Send message when button is clicked
+        sendMessage.addEventListener('click', () => {
+            const message = userMessage.value.trim();
+            if (message) {
+                // Add user message to chat
+                addMessage(message, true);
+                
+                // Clear input
+                userMessage.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Simulate AI response delay (varies based on message length)
+                const responseDelay = Math.min(1000, 400 + message.length * 10);
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    // Process message and add response
+                    const response = processMessage(message);
+                    addMessage(response);
+                }, responseDelay);
+            }
+        });
+
+        // Send message when Enter key is pressed
+        userMessage.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage.click();
+            }
+        });
+
+        // Function for treatment modal
+        window.openTreatmentModal = function(title, description) {
+            // Treatment modal functionality would go here
+            console.log(`Opening treatment modal for: ${title}`);
+            alert(`Treatment guide for ${title}: ${description}`);
+        };
+
+        // Functions for call buttons
+        window.emergencyCall = function() {
+            console.log("Emergency call initiated");
+            alert("Initiating emergency call to 911");
+        };
+
+        window.doctorCall = function() {
+            console.log("Doctor call initiated");
+            alert("Connecting to an on-call doctor");
+        };
+
+        window.videoCall = function() {
+            console.log("Video call initiated");
+            alert("Preparing video consultation");
+        };
+
+        // Open chatbot modal on call
+        window.openCallModal = function() {
+            console.log("Call modal opened");
+            alert("Calling emergency services: 911");
+        };
+    });
+</script>
+</body>
+</html>
